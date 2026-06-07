@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android App & Play Store Bundle
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build Debug APK
+    name: Build & Sign Android Packages
     runs-on: ubuntu-latest
 
     steps:
@@ -31,13 +31,60 @@ jobs:
     - name: Grant Execute Permission to Gradlew
       run: chmod +x android-app/gradlew
 
-    - name: Build Android Applock Project
+    - name: Build Debug APK & Release Packages
       run: |
         cd android-app
+        # Build Debug APK (For quick testing)
         ./gradlew assembleDebug
+        # Build Release APK
+        ./gradlew assembleRelease
+        # Build Release AAB (Android App Bundle for Google Play Store upload)
+        ./gradlew bundleRelease
 
-    - name: Upload APK as Release Artifact
+    - name: Generate Auto-Signing Key & Sign Packages
+      run: |
+        # Generate a temporary release signing keystore
+        keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 \
+          -alias my-key-alias -storepass mysecretpassword123 -keypass mysecretpassword123 \
+          -dname "CN=AppLock, OU=Production, O=AppLockTimerPro, L=Delhi, S=Delhi, C=IN"
+
+        echo "Signing Release Android App Bundle (.aab)..."
+        # Check and sign App Bundle (AAB)
+        if [ -f "android-app/app/build/outputs/bundle/release/app-release-unsigned.aab" ]; then
+          jarsigner -keystore my-release-key.jks -storepass mysecretpassword123 -keypass mysecretpassword123 \
+            -signedjar android-app/app/build/outputs/bundle/release/app-release.aab \
+            android-app/app/build/outputs/bundle/release/app-release-unsigned.aab my-key-alias
+        elif [ -f "android-app/app/build/outputs/bundle/release/app-release.aab" ]; then
+          jarsigner -keystore my-release-key.jks -storepass mysecretpassword123 -keypass mysecretpassword123 \
+            android-app/app/build/outputs/bundle/release/app-release.aab my-key-alias
+        fi
+
+        echo "Signing Release APK (.apk)..."
+        # Check and sign Release APK
+        if [ -f "android-app/app/build/outputs/apk/release/app-release-unsigned.apk" ]; then
+          jarsigner -keystore my-release-key.jks -storepass mysecretpassword123 -keypass mysecretpassword123 \
+            -signedjar android-app/app/build/outputs/apk/release/app-release.apk \
+            android-app/app/build/outputs/apk/release/app-release-unsigned.apk my-key-alias
+        elif [ -f "android-app/app/build/outputs/apk/release/app-release.apk" ]; then
+          jarsigner -keystore my-release-key.jks -storepass mysecretpassword123 -keypass mysecretpassword123 \
+            android-app/app/build/outputs/apk/release/app-release.apk my-key-alias
+        fi
+
+    - name: Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
         name: AppLockTimerPro-Debug-APK
         path: android-app/app/build/outputs/apk/debug/app-debug.apk
+
+    - name: Upload Signed Release APK (For direct phone install)
+      uses: actions/upload-artifact@v4
+      with:
+        name: AppLockTimerPro-Signed-Release-APK
+        path: android-app/app/build/outputs/apk/release/app-release.apk
+
+    - name: Upload Signed Release AAB (For Google Play Store upload)
+      uses: actions/upload-artifact@v4
+      with:
+        name: AppLockTimerPro-Signed-Release-AAB
+        path: android-app/app/build/outputs/bundle/release/app-release.aab
+
