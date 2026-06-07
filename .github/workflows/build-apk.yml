@@ -7,6 +7,9 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch: # Allows manual triggering from GitHub's UI
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build & Sign Android Packages
@@ -87,4 +90,24 @@ jobs:
       with:
         name: AppLockTimerPro-Signed-Release-AAB
         path: android-app/app/build/outputs/bundle/release/app-release.aab
+
+    - name: Create Automatic Release on GitHub
+      uses: softprops/action-gh-release@v2
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      with:
+        tag_name: latest
+        name: "Latest Android App Lock Build (Installs & Google Play Store)"
+        body: |
+          These are the latest compiled Android application files built automatically.
+          
+          - **Download `app-release.apk`**: For direct installation on your mobile phone.
+          - **Download `app-release.aab`**: This is the bundle you upload to the Google Play Console for Play Store release.
+          - Built on: ${{ github.event.head_commit.timestamp || 'Manual Trigger' }}
+        draft: false
+        prerelease: false
+        files: |
+          android-app/app/build/outputs/apk/release/app-release.apk
+          android-app/app/build/outputs/bundle/release/app-release.aab
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
