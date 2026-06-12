@@ -1,0 +1,98 @@
+========================================================================
+GOOGLE PLAY STORE LISTING DETAILS - STUDY MODE APP LOCK & TIMER
+========================================================================
+
+Choose your preferred language metadata or upload both to different localization tabs on the Play Console for maximum visibility!
+
+------------------------------------------------------------------------
+Option 1: English (United States) - Recommended Primary Language
+------------------------------------------------------------------------
+
+■ APP TITLE (Max 50 characters)
+----------------------------------------
+Study Mode App Lock & Timer
+
+■ SHORT DESCRIPTION (Max 80 characters)
+----------------------------------------
+Secure apps with PIN & pattern locks. Prevent addiction with custom timer profiles!
+
+■ FULL DESCRIPTION (Max 4000 characters)
+----------------------------------------
+Take back control of your privacy and screen time with Study Mode App Lock & Timer—the ultimate dual-purpose application that secures your personal space while actively combating digital addiction. 
+
+Whether you want to lock messaging apps from nosy friends, shield payment apps from children, or schedule strict lockout windows for distracting social networks during work hours, Study Mode App Lock & Timer runs locally, securely, and completely offline on your device!
+
+★★ KEY FEATURES ★★
+
+🔒 PRECISE & SECURE APP LOCK
+Secure private applications including WhatsApp, Instagram, Facebook, Gmail, Photos, Settings, and banking apps. Support for secure high-entropy Numeric PIN input and Pattern grid locks.
+
+⏳ SMART SCREEN TIME CONTROLLER
+Set daily time limits for addictive entertainment or gaming applications. Once the individual daily time quota is exhausted, the app shields it securely, prompting you to stay disciplined. Perfect for digital detox and productivity!
+
+📅 SCHEDULED FOCUS TIMERS
+Define specific lock schedules. Create custom locking policies such as: "Block distraction apps from 9:00 AM to 5:00 PM on weekdays." Lock individual sets of apps separately during study, work, or sleep times.
+
+🛡️ SYSTEM PERMISSIONS GUARD
+Prevents unauthorized uninstallation of the app. Built-in protection ensures that toddlers or friends cannot bypass your app lock setup.
+
+🎨 MODERN, MINIMALIST DASHBOARD
+Designed utilizing clean Jetpack Compose styling guidelines. Dark slate-blue colors ensure eye-comfort during night use, presenting a beautiful workspace interface.
+
+📈 OFFLINE & PRIVACY FIRST
+We respect your digital boundaries. Unlike other launchers or app-lockers, Study Mode App Lock & Timer requires NO internet access to verify codes or track actions. All configuration records are retained locally inside an encrypted SQLite/Room sandbox.
+
+■ WHAT'S NEW IN VERSION 1.0 (1)
+----------------------------------------
+- Initial stable release.
+- Secure Pattern/PIN protection.
+- Schedule timers to control screen usage.
+- Beautiful, eye-safe slate blue visual interface.
+- 100% offline security.
+
+
+========================================================================
+Option 2: Hindi (India) - For Indian Audiences
+========================================================================
+
+■ APP TITLE / ऐप का नाम (Max 50 characters)
+----------------------------------------
+Study Mode App Lock & Timer
+
+■ SHORT DESCRIPTION / संक्षिप्त विवरण (Max 80 characters)
+----------------------------------------
+PIN और पैटर्न से ऐप लॉक करें। कस्टम टाइमर से स्मार्टफोन की आदत को कंट्रोल करें!
+
+■ FULL DESCRIPTION / पूरा विवरण (Max 4000 characters)
+----------------------------------------
+Study Mode App Lock & Timer के साथ अपनी प्राइवेसी और स्क्रीन टाइम को पूरी तरह से कंट्रोल करें! यह एक बेहद सुरक्षित ऐप लॉकर है जो न केवल आपकी पर्सनल चैट और ऐप्स को पिन/पैटर्न से सुरक्षित रखता है, बल्कि टाइमर सेट करके मोबाइल के अत्यधिक इस्तेमाल की लत को भी छुड़ाता है।
+
+चाहे आपको बच्चों से पेमेंट ऐप्स सुरक्षित रखने हों, या ऑफिस के समय सोशल मीडिया ऐप्स को लॉक करके फोकस बढ़ाना हो—यह ऐप आपके फोन पर पूरी तरह से लोकल, ऑफलाइन और सुरक्षित रूप से काम करती है!
+
+★★ मुख्य विशेषताएं (Key Features) ★★
+
+🔒 मजबूत और सटीक ऐप लॉक (App Lock)
+अपने जरूरी ऐप्स जैसे कि WhatsApp, Instagram, Facebook, Photos, Contacts और Google Pay को सुरक्षित पिन (PIN) या पैटर्न लॉक (Pattern Lock) से सुरक्षित रखें।
+
+⏳ स्क्रीन टाइम टाइमर (Screen Time Controller)
+मनोरंजन या गेमिंग ऐप्स के लिए डेली यूसेज लिमिट (कुओटा) सेट करें। टाइमर समाप्त होते ही ऐप आटोमैटिक लॉक हो जाएगी, जिससे आप पूरी तरह अनुशासित रहकर अपनी पढ़ाई या काम पर ध्यान दे सकते हैं।
+
+📅 शेड्यूल्ड फोकस मोड (Scheduled Locking)
+विशेष समय के अनुसार ऐप को एक्टिव करें। जैसे कि: "सुबह 9:00 से शाम 5:00 बजे तक काम के समय सोशल मीडिया ऐप्स लॉक हो जाएं।" 
+
+🛡️ अनइंस्टॉल से सुरक्षा (Uninstall Protection)
+कोई भी अन्य व्यक्ति आपकी परमिशन के बिना इस लॉक ऐप को डिलीट नहीं कर सकता, जिससे आपकी सिक्योरिटी हमेशा बनी रहती है।
+
+🎨 आधुनिक और सुंदर डिज़ाइन (Premium Dashboard)
+यूज़र-फ्रेंडली और बेहतरीन मॉडर्न डार्क-स्लेट डिज़ाइन जो रात में इस्तेमाल के दौरान आंखों को आराम देता है।
+
+📈 पूर्ण प्राइवेसी (Privacy-First Policy)
+सुरक्षा सर्वोपरि है। यह ऐप 100% ऑफलाइन काम करती है। हम आपका कोई भी पर्सनल डेटा इकट्ठा नहीं करते हैं। सारा रिकॉर्ड आपके मोबाइल के लोकल रूम डेटाबेस (Room SQLite Database) में रहता है।
+
+■ वर्ज़न 1.0 में क्या नया है?
+----------------------------------------
+- पहला स्टेबल रिलीज़।
+- सुरक्षित पैटर्न और पिन प्रोटेक्शन।
+- स्क्रीन और ऐप यूसेज को रोकने के लिए कस्टम टाइमर।
+- उपयोग में बेहद आसान और 100% सुरक्षित ऑफलाइन वर्किंग।
+========================================================================

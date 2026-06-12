@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">AppLock Timer Pro</string>
+    <string name="app_name">Study Mode App Lock & Timer</string>
     <string name="accessibility_service_desc">This service is required to detect when locked apps are opened and prompt the lock screen overlay to prevent unauthorized access.</string>
 </resources>

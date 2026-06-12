@@ -123,7 +123,7 @@ class AppMonitorService : Service() {
         val channelId = "app_monitor_channel"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                channelId, "App Lock with Timer Monitor",
+                channelId, "Study Mode App Lock & Timer Monitor",
                 NotificationManager.IMPORTANCE_LOW
             )
             val manager = getSystemService(NotificationManager::class.java)
@@ -131,7 +131,7 @@ class AppMonitorService : Service() {
         }
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("App Lock with Timer Active")
+            .setContentTitle("Study Mode App Lock & Timer Active")
             .setContentText("Protecting your screen time & apps")
             .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
             .setOngoing(true)
@@ -176,7 +176,7 @@ class LockAccessibilityService : AccessibilityService() {
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             val packageName = event.packageName?.toString() ?: return
             
-            // Check if user is attempting to uninstall App Lock with Timer to bypass restrictions
+            // Check if user is attempting to uninstall Study Mode App Lock & Timer to bypass restrictions
             if (packageName == "com.android.settings") {
                 // Safely intercept package management screens if needed
             }

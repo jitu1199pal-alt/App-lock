@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Study Mode App Lock & Timer</title>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;750&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            
+            --critical-bg: #fee2e2;
+            --critical-text: #991b1b;
+            --sensitive-bg: #fef3c7;
+            --sensitive-text: #92400e;
+            --normal-bg: #e0f2fe;
+            --normal-text: #075985;
+            
+            --nav-dark: #0f172a;
+            --blue-accent: #3b82f6;
+            --blue-hover: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-muted);
+            background-color: var(--primary-bg);
+            padding-bottom: 60px;
+        }
+
+        /* Hero Header Blue Banner Selector Section */
+        .hero-banner {
+            background-color: #1e293b;
+            background-image: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 2px dashed #334155;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.025em;
+        }
+
+        .hero-banner p.subtitle {
+            font-size: 1.1rem;
+            color: #93c5fd;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .hero-banner p.date {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 24px;
+            font-family: monospace;
+        }
+
+        /* Buttons Tab Navigation Layout */
+        .language-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .switch-btn {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1.5px solid #475569;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .switch-btn:hover {
+            border-color: #93c5fd;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .switch-btn.active {
+            background-color: #ffffff;
+            color: #0f172a;
+            border-color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Content Sheet Layout matches Screenshot */
+        .container {
+            max-width: 820px;
+            width: 100%;
+            margin: -20px auto 0 auto; /* Pull overlaps into the banner gracefully */
+            padding: 0 16px;
+        }
+
+        .policy-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 36px 32px;
+            margin-bottom: 30px;
+        }
+
+        /* Interactive Language Blocks Visibility */
+        .language-block {
+            display: none;
+        }
+
+        .language-block.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Structured Typography Styles */
+        h2.section-title {
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            font-weight: 650;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1.5px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2.section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 16px;
+            font-size: 0.975rem;
+            line-height: 1.65;
+            color: #334155;
+        }
+
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        li strong {
+            color: var(--text-dark);
+        }
+
+        /* Accent Highlight Boxes */
+        .callout-box {
+            background-color: #f0fdf4;
+            border-left: 4.5px solid #16a34a;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+
+        .callout-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: #15803d;
+        }
+
+        /* Structured Table Layout matching screenshots */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Color-Coded Badges matching screenshots */
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+        .badge.critical {
+            background-color: var(--critical-bg);
+            color: var(--critical-text);
+        }
+
+        .badge.sensitive {
+            background-color: var(--sensitive-bg);
+            color: var(--sensitive-text);
+        }
+
+        .badge.normal {
+            background-color: var(--normal-bg);
+            color: var(--normal-text);
+        }
+
+        /* Monospace package strings or parameters */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f5f9;
+            color: #ef4444;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        /* Floating Interactive Top Bar for Copying HTML directly / Admin toolbar */
+        .dev-toolbar {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .dev-toolbar span {
+            color: #38bdf8;
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        /* Modern Dark Footer matching bottom copyright */
+        .dark-footer {
+            background-color: #0b0c13;
+            color: #64748b;
+            padding: 40px 20px;
+            border-top: 1px solid #1e293b;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .dark-footer a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .dark-footer p {
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        /* Mobile Optimization overrides */
+        @media (max-width: 640px) {
+            .policy-card {
+                padding: 24px 18px;
+            }
+            .hero-banner h1 {
+                font-size: 1.7rem;
+            }
+            td, th {
+                padding: 10px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Admin Copy Assistant Toolbar (Visible to Developers in Console) -->
+    <div class="dev-toolbar">
+        <div>🔧 Developer Hub: <span>Ready to deploy on Play Store Console</span></div>
+        <button class="copy-btn" onclick="copyHTMLToClipboard()">Copy HTML Code</button>
+    </div>
+
+    <!-- Header Hero Banner Selector matching Uploaded Screens -->
+    <div class="hero-banner">
+        <h1>Privacy Policy</h1>
+        <p class="subtitle" id="banner-subtitle">Study Mode App Lock & Timer / स्टडी मोड ऐप लॉक एंड टाइमर</p>
+        <p class="date">Effective Date: June 12, 2026</p>
+        
+        <!-- Language Switcher exactly matching screenshot layout -->
+        <div class="language-switcher">
+            <button class="switch-btn active" id="btn-en" onclick="setLanguage('en')">English Version</button>
+            <button class="switch-btn" id="btn-hi" onclick="setLanguage('hi')">हिंदी संस्करण (Hindi)</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="policy-card">
+            
+            <!-- ------------------------------------------------------------- -->
+            <!-- ENGLISH LANGUAGE BLOCK                                        -->
+            <!-- ------------------------------------------------------------- -->
+            <div id="block-en" class="language-block active">
+                <h2 class="section-title">1. English Version</h2>
+                <p>Welcome to <strong>Study Mode App Lock & Timer</strong>. We respect your privacy and are committed to protecting it. This Privacy Policy describes how we collect, use, and handle information within the application.</p>
+                <p>Our app is fully functional client-side, designed to secure your mobile phone against digital distractions and manage locking optimizations intelligently. By using the app, you agree to the practices outlined below.</p>
+
+                <h2 class="section-title">2. Information Collection & Use</h2>
+                <p>We believe in absolute data minimalism. Here is what we do and do NOT collect:</p>
+                <ul>
+                    <li><strong>No Personal Identifiable Information (PII):</strong> We do NOT collect, transmit, or store your name, email address, physical address, phone numbers, contact lists, or location markers.</li>
+                    <li><strong>Local Device Storage:</strong> All application configs (such as trigger lockdown times, daily screen-time allocations, block limits, and customized PIN/Patterns) are recorded and saved strictly in your device's private local storage space (Sandboxed Room SQLite DB). They never leave your device.</li>
+                    <li><strong>No Server Synced Backends:</strong> Because the application does not make network calls to run locks, we have no background web servers tracking your device activities.</li>
+                    <li><strong>Encrypted Local Hash:</strong> Your PIN code and lock patterns are stored locally using modern cryptographic irreversible hash algorithms to guarantee maximum physically-local security.</li>
+                </ul>
+
+                <h2 class="section-title">3. Sensitive Device Permissions</h2>
+                <p>To provide real-time app locks, manage block overlays, and control strict timer restrictions, our app utilizes specialized Android hardware system permissions. Here is why we need them and how they work:</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30%">Permission</th>
+                                <th style="width: 20%">Type</th>
+                                <th style="width: 50%">Purpose & How it works</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ACCESSIBILITY_SERVICE</strong></td>
+                                <td><span class="badge critical">Sensitive</span></td>
+                                <td><strong>Essential.</strong> Allows the app to monitor window state changes locally and detect when a restricted app is launched, triggering the overlay blocker instantly. No keystrokes are recorded.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SYSTEM_ALERT_WINDOW</strong><br><small>(Draw on overlays)</small></td>
+                                <td><span class="badge critical">Critical</span></td>
+                                <td><strong>Essential.</strong> Enables rendering of the highly-secure PIN/Pattern lock screens on top of target locked applications when they try to bypass.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PACKAGE_USAGE_STATS</strong></td>
+                                <td><span class="badge critical">Critical</span></td>
+                                <td>Required to accurately query background operational runtimes and verify daily study minutes logged for the restricted apps list.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>FOREGROUND_SERVICE</strong></td>
+                                <td><span class="badge normal">Normal</span></td>
+                                <td>Ensures the background monitoring services can sleep cycles safely to track durations without getting aggressively closed by Android resources.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RECEIVE_BOOT_COMPLETED</strong></td>
+                                <td><span class="badge normal">Normal</span></td>
+                                <td>Automatically reactivates study lock routines when the device restarts, protecting you against quick reboot lock bypasses.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</strong></td>
+                                <td><span class="badge sensitive">Sensitive</span></td>
+                                <td>Stops Android's deep battery dozing from aggressively freezing the background focus countdown monitor.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="section-title">4. Ads & Third-Party Integration</h2>
+                <p>Our app values an ad-free, uninterrupted studying environment. We do NOT use third-party advertisement networks (like Google AdMob or Unity), nor do we load commercial SDK analytics libraries. There are zero cookies or analytic beacons tracking you.</p>
+
+                <h2 class="section-title">5. Children's Privacy</h2>
+                <p>Because some elements of screen time limit locks are highly useful for students and minors, our application satisfies child safety compliance directives. Since zero PII data or location telemetry is harvested, the app is 100% compliant with standard Child Online Privacy Protection Acts (COPPA) and GDPR minors guidelines.</p>
+
+                <h2 class="section-title">6. Contact Us</h2>
+                <p>If you have any questions, suggestions, or concerns regarding this policy, please feel free to reach out directly to our developer team email:</p>
+                <p>📧 Email Support: <a href="mailto:jitu1199pal@gmail.com" style="color: #2563eb; font-weight: 500;">jitu1199pal@gmail.com</a></p>
+            </div>
+
+            <!-- ------------------------------------------------------------- -->
+            <!-- HINDI LANGUAGE BLOCK                                          -->
+            <!-- ------------------------------------------------------------- -->
+            <div id="block-hi" class="language-block">
+                <h2 class="section-title">1. हिंदी संस्करण (Hindi)</h2>
+                <p><strong>Study Mode App Lock & Timer</strong> में आपका स्वागत है। हम गोपनीयता (Privacy) का सम्मान करते हैं और इसे पूरी तरह सुरक्षित रखने के लिए प्रतिबद्ध हैं। यह प्राइवेसी पॉलिसी बताती है कि हमारी ऐप डिवाइस पर आपकी जानकारी को किस प्रकार प्रबंधित और सुरक्षित करती है।</p>
+                <p>हमारी यह एप्लीकेशन 100% ऑफलाइन-फर्स्ट और क्लाइंट-साइड रूप से कार्य करती है। इसका मुख्य उद्देश्य पढ़ाई के दौरान आपका ध्यान विचलित होने से बचाना और फ़ोन पर लगे प्रतिबंधों को सुरक्षित रूप से लागू करना है।</p>
+
+                <h2 class="section-title">2. डेटा का संग्रह और उपयोग</h2>
+                <p>हम न्यूनतम डेटा संग्रह (Data Minimalism) की नीति पर काम करते हैं। हम क्या स्टोर करते हैं और क्या नहीं, इसकी सूची निम्न प्रकार है:</p>
+                <ul>
+                    <li><strong>कोई व्यक्तिगत जानकारी नहीं (No PII):</strong> हम आपका नाम, ईमेल, फ़ोन नंबर, कांटेक्ट लिस्ट या वास्तविक लोकेशन डेटा बिलकुल भी ट्रैक या स्टोर नहीं करते हैं।</li>
+                    <li><strong>स्थानीय डिवाइस स्टोरेज (Local Storage):</strong> ऐप की प्रत्येक सेटिंग्स—जैसे सिलेक्टेड ऐप्स की लिस्ट, टाइमर लिमिट्स, स्टडी शेड्यूल्स और आपके द्वारा बनाए गए PIN/Pattern—सभी डेटा आपके फ़ोन के सुरक्षित लोकल सैंडबॉक्स (Room SQLite Database) में रहता है। यह डेटा कभी आपके फ़ोन से बाहर नहीं जाता।</li>
+                    <li><strong>कोई क्लाउड बैकएंड नहीं:</strong> ऐप का कोई ऑनलाइन क्लाउड डेटाबेस नहीं है, इसलिए आपके ऐप यूसेज का कोई ट्रैक इंटरनेट पर अपलोड नहीं हो सकता।</li>
+                    <li><strong>एनक्रिप्टेड पासवर्ड:</strong> आपका पिन (PIN) और पैटर्न फ़ोन की लोकल मेमोरी में इररिवर्सिबल रूप से हैश करके सेव होते हैं, जिससे आपकी लोकल सुरक्षा अत्यंत सुदृढ़ बनी रहती है।</li>
+                </ul>
+
+                <h2 class="section-title">3. डिवाइस की संवेदनशील अनुमतियाँ (Device Permissions)</h2>
+                <p>ऐप को बैकग्राउंड में टाइमर ट्रैक करने, कस्टमाइज्ड लॉक लगाने और बिना किसी बाइपास के काम करने के लिए एंड्रॉइड सिस्टम की विशेष अनुमतियों की आवश्यकता होती है:</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30%">अनुमति (Permission)</th>
+                                <th style="width: 20%">प्रकार</th>
+                                <th style="width: 50%">उद्देश्य और कार्यप्रणाली</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ACCESSIBILITY_SERVICE</strong></td>
+                                <td><span class="badge critical" style="background-color: #fee2e2; color: #991b1b;">महत्वपूर्ण</span></td>
+                                <td><strong>अनिवार्य।</strong> यह सर्विस बैकग्राउंड में लॉक की गई ऐप के ओपन होने पर विंडो स्टेट को डिटेक्ट करती है और तुरंत PIN/Pattern लॉक स्क्रीन दिखाती है। यह कोई डेटा इकट्ठा या शेयर नहीं करती।</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SYSTEM_ALERT_WINDOW</strong><br><small>(Draw over other app overlays)</small></td>
+                                <td><span class="badge critical" style="background-color: #fee2e2; color: #991b1b;">महत्वपूर्ण</span></td>
+                                <td><strong>अनिवार्य।</strong> यह अन्य प्रतिबंधित ऐप्स के ऊपर सुरक्षा पिन या पैटर्न लॉक स्क्रीन ओवरले दिखाने में मदद करता है।</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PACKAGE_USAGE_STATS</strong></td>
+                                <td><span class="badge critical" style="background-color: #fee2e2; color: #991b1b;">महत्वपूर्ण</span></td>
+                                <td>इसका उपयोग सक्रिय रूप से बैकग्राउंड में ऐप्स के इस्तेमाल के समय (Minutes) और असाइन की गई दैनिक समय सीमाओं को कैलकुलेट करने के लिए किया जाता है।</td>
+                            </tr>
+                            <tr>
+                                <td><strong>FOREGROUND_SERVICE</strong></td>
+                                <td><span class="badge normal" style="background-color: #e0f2fe; color: #075985;">सामान्य</span></td>
+                                <td>इसके द्वारा एंड्रॉइड ऑपरेटिंग सिस्टम बैकग्राउंड में चल रहे फोकस-टाइमर को अचानक बंद होने से बचाता है।</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RECEIVE_BOOT_COMPLETED</strong></td>
+                                <td><span class="badge normal" style="background-color: #e0f2fe; color: #075985;">सामान्य</span></td>
+                                <td>फ़ोन को रीस्टार्ट / रीबूट करने पर भी सुरक्षा सर्विस ऑटोमैटिक बैकग्राउंड में री-एक्टिवेट हो जाती है ताकि लॉक को बाइपास न किया जा सके।</td>
+                            </tr>
+                            <tr>
+                                <td><strong>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</strong></td>
+                                <td><span class="badge sensitive" style="background-color: #fef3c7; color: #92400e;">संवेदनशील</span></td>
+                                <td>एंड्रॉइड की डीप-स्लीप बैटरी अनुकूलन (Battery Optimization) योजना को आपके सक्रिय फोकस शेड्यूल्स को निष्क्रिय करने से रोकता है।</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="section-title">4. विज्ञापन और तृतीय-पक्ष सेवाएँ (Ads Integration)</h2>
+                <p>पढ़ाई में आपकी एकाग्रता बनाए रखने के लिए, यह ऐप पूरी तरह से विज्ञापनों (No Ads) और ट्रैकर रहित है। हम न तो किसी एडवरटाइजिंग SDK (जैसे AdMob) का इस्तेमाल करते हैं और न ही किसी एनालिटिक्स टूल का। आपका ऐप इस्तेमाल बिलकुल शांत और गोपनीय है।</p>
+
+                <h2 class="section-title">5. बच्चों की गोपनीयता (Children's Privacy)</h2>
+                <p>चूँकि यह ऐप छात्रों और बच्चों के स्क्रीन टाइम को कम करने के लिए भी बनाई गई है, हम बच्चों की सुरक्षा नीतियों का पूरी तरह पालन करते हैं। हम कोई डेटा कलेक्ट नहीं करते हैं, जिसके चलते यह ऐप COPPA और EU GDPR के बाल-गोपनीयता नियमों के पूरी तरह अनुकूल है।</p>
+
+                <h2 class="section-title">6. हमसे संपर्क करें</h2>
+                <p>यदि आपके पास ऐप की गोपनीयता नीति, सेटिंग्स या सुरक्षा के संबंध में कोई सवाल या सुझाव है, तो सीधे ईमेल पर संपर्क करें:</p>
+                <p>📧 ईमेल सपोर्ट: <a href="mailto:jitu1199pal@gmail.com" style="color: #2563eb; font-weight: 500;">jitu1199pal@gmail.com</a></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Dark Footer Panel -->
+    <div class="dark-footer">
+        <p>&copy; 2026 Study Mode App Lock & Timer. All rights reserved.</p>
+        <p>Package ID: <code>com.applocktimer.pro</code> | Play Console SDK 34/35 Stability Architecture</p>
+        <p style="font-size: 0.75rem; margin-top: 15px; color: #475569;">Made securely offline for students and focus tracking.</p>
+    </div>
+
+    <!-- Script for interactive client language tabs and copying HTML source -->
+    <script>
+        function setLanguage(lang) {
+            // Remove active classes
+            document.getElementById('btn-en').classList.remove('active');
+            document.getElementById('btn-hi').classList.remove('active');
+            document.getElementById('block-en').classList.remove('active');
+            document.getElementById('block-hi').classList.remove('active');
+
+            // Add active to selected
+            if (lang === 'en') {
+                document.getElementById('btn-en').classList.add('active');
+                document.getElementById('block-en').classList.add('active');
+                document.getElementById('banner-subtitle').innerText = "Study Mode App Lock & Timer / स्टडी मोड ऐप लॉक एंड टाइमर";
+            } else {
+                document.getElementById('btn-hi').classList.add('active');
+                document.getElementById('block-hi').classList.add('active');
+                document.getElementById('banner-subtitle').innerText = "स्टडी मोड ऐप लॉक एंड टाइमर / Study Mode App Lock & Timer";
+            }
+        }
+
+        // Feature: Allows the developer to pre-copy this entire source with 1 click to host it or save it!
+        function copyHTMLToClipboard() {
+            const entireHTML = `<!DOCTYPE html>\n` + document.documentElement.outerHTML;
+            navigator.clipboard.writeText(entireHTML).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerText = "COPIED! ✅";
+                btn.style.backgroundColor = "#10b981";
+                btn.style.color = "#ffffff";
+                setTimeout(() => {
+                    btn.innerText = "Copy HTML Code";
+                    btn.style.backgroundColor = "#38bdf8";
+                    btn.style.color = "#0f172a";
+                }, 2000);
+            }).catch(err => {
+                alert("Failed to copy HTML: " + err);
+            });
+        }
+    </script>
+</body>
+</html>

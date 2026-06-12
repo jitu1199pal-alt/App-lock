@@ -1,5 +1,5 @@
 {
-  "name": "App Lock with Timer",
+  "name": "Study Mode App Lock & Timer",
   "description": "App Lock, Screen Time Controller, and Focus Mode Simulator & Developer Hub for Android Kotlin SDK 35",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

@@ -33,7 +33,7 @@ export default function AndroidSimulator({
   addLog,
 }: AndroidSimulatorProps) {
   // Simulator Navigation & Internal State
-  const [currentSimulatorView, setCurrentSimulatorView] = useState<'LOCKSCREEN' | 'PERMISSIONS' | 'SETUP_LOCK' | 'HOME' | 'RECOVERY' | 'APP_ACTIVE' | 'LAUNCHED_OVERLAY'>('PERMISSIONS');
+  const [currentSimulatorView, setCurrentSimulatorView] = useState<'LOCKSCREEN' | 'PERMISSIONS' | 'SETUP_LOCK' | 'APP_PASSCODE_LOCK' | 'HOME' | 'RECOVERY' | 'APP_ACTIVE' | 'LAUNCHED_OVERLAY' | 'APP_PRIVACY'>('PERMISSIONS');
   
   // Simulated Launched App State
   const [launchedApp, setLaunchedApp] = useState<LockedApp | null>(null);
@@ -41,6 +41,7 @@ export default function AndroidSimulator({
   const [temporaryBypass, setTemporaryBypass] = useState(false);
   const [pinEntry, setPinEntry] = useState('');
   const [pinError, setPinError] = useState(false);
+  const [privacyLang, setPrivacyLang] = useState<'en' | 'hi'>('en');
   
   // Permissions toggler helper state
   const [tempPermissions, setTempPermissions] = useState(securityConfig.permissions);
@@ -58,7 +59,7 @@ export default function AndroidSimulator({
   // Sync back security configs if permissions checked
   useEffect(() => {
     if (securityConfig.isConfigured) {
-      setCurrentSimulatorView('HOME');
+      setCurrentSimulatorView('APP_PASSCODE_LOCK');
     }
   }, []);
 
@@ -124,7 +125,7 @@ export default function AndroidSimulator({
       isConfigured: true,
       permissions: tempPermissions,
     });
-    addLog('system.security', 'App Lock with Timer Setup', 'unlocked', `Secure ${selectedLockType} setup successfully complete. Verification hint: '${securityName}'`);
+    addLog('system.security', 'Study Mode App Lock & Timer Setup', 'unlocked', `Secure ${selectedLockType} setup successfully complete. Verification hint: '${securityName}'`);
     setCurrentSimulatorView('HOME');
   };
 
@@ -188,10 +189,17 @@ export default function AndroidSimulator({
 
   const handleAddExtraMinutes = (minutes: number) => {
     if (launchedApp) {
+      if (pinEntry !== securityConfig.lockValue) {
+        setPinError(true);
+        addLog(launchedApp.packageName, launchedApp.appName, 'blocked', `Security error: Attempted to break/extend screen limits for ${launchedApp.appName} without providing valid PIN code first`);
+        return;
+      }
+      setPinError(false);
+      setPinEntry('');
       updateAppLimit(launchedApp.packageName, Math.max(launchedApp.dailyLimit, launchedApp.usedMinutes) + minutes);
       setTemporaryBypass(true);
       setCurrentSimulatorView('APP_ACTIVE');
-      addLog(launchedApp.packageName, launchedApp.appName, 'time_extended', `Granted and configured extra +${minutes} minutes layout for ${launchedApp.appName}`);
+      addLog(launchedApp.packageName, launchedApp.appName, 'time_extended', `Passcode approved: Confirmed PIN lock, setting +${minutes} min extra break for ${launchedApp.appName}`);
     }
   };
 
@@ -557,14 +565,72 @@ export default function AndroidSimulator({
             </div>
           )}
 
-          {/* SECTION 3: HOME CONSOLE */}
+          {/* SECTION 3: APP_PASSCODE_LOCK SCREEN (Always enforce passcode when opening setting console) */}
+          {currentSimulatorView === 'APP_PASSCODE_LOCK' && (
+            <div className="flex-1 flex flex-col justify-between p-4 bg-gradient-to-b from-[#090b11] to-[#0e1017]">
+              <div className="space-y-5 pt-3">
+                <div className="text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-indigo-600/5 animate-pulse">
+                    <Lock className="w-6 h-6 text-indigo-400" />
+                  </div>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-gray-200">Study Mode Security</h3>
+                  <p className="text-[9px] text-gray-400 max-w-[180px] mx-auto mt-1 leading-normal">
+                    This settings app is locked under secure PIN/Password access.
+                  </p>
+                </div>
+
+                <div className="bg-gray-950/50 p-3 rounded-xl border border-gray-850 space-y-2">
+                  <span className="text-[8px] uppercase tracking-wider font-mono text-gray-500 block text-center">
+                    Enter Master {securityConfig.lockType}
+                  </span>
+                  <input
+                    id="app-passcode-entry"
+                    type="password"
+                    maxLength={12}
+                    placeholder={`Type ${securityConfig.lockType}`}
+                    value={pinEntry}
+                    onChange={(e) => setPinEntry(e.target.value)}
+                    className="w-full bg-[#11131a] border border-gray-850 rounded-lg px-2.5 py-1.5 text-xs text-center tracking-widest text-indigo-300 font-bold focus:outline-none focus:ring-1 focus:ring-indigo-600"
+                  />
+                  {pinError && (
+                    <span className="text-[8.5px] text-rose-500 block text-center italic mt-1 font-sans">
+                      ⚠ Incorrect password credentials
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <button
+                  id="app-verify-passcode-btn"
+                  onClick={handleVerifyPin}
+                  className="w-full py-2 bg-indigo-600 hover:bg-indigo-550 text-white text-xs font-bold font-sans rounded-xl shadow cursor-pointer transition active:scale-98"
+                >
+                  Verify PIN
+                </button>
+                <button
+                  id="app-passcode-forgot"
+                  onClick={() => {
+                    setCurrentSimulatorView('RECOVERY');
+                    setPinEntry('');
+                    setPinError(false);
+                  }}
+                  className="w-full text-center py-1 text-[9px] font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
+                >
+                  Forgot Password?
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* SECTION 4: HOME CONSOLE */}
           {currentSimulatorView === 'HOME' && (
             <div className="flex-1 flex flex-col justify-between bg-[#0a0c11]">
               {/* Home Lock Header */}
               <div className="bg-[#10131e] px-4 py-3 border-b border-gray-900 flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <Shield className="w-4 h-4 text-indigo-400" />
-                  <span className="text-xs font-bold font-sans text-gray-200">App Lock with Timer</span>
+                  <span className="text-xs font-bold font-sans text-gray-200">Study Mode App Lock & Timer</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
@@ -796,31 +862,132 @@ export default function AndroidSimulator({
               </div>
 
               {/* Home Lock Footer menu bar */}
-              <div className="bg-[#10131e] p-2.5 border-t border-gray-900 grid grid-cols-2 gap-2 text-center">
+              <div className="bg-[#10131e] p-2 px-2.5 border-t border-gray-900 grid grid-cols-3 gap-1.5 text-center shrink-0">
                 <button
                   id="reset-security-phone"
                   onClick={() => {
                     setCurrentSimulatorView('PERMISSIONS');
                     addLog('system.reset', 'Phone State Restored', 'unlocked', `Re-evaluating Android system locks permissions. System reset initialized`);
                   }}
-                  className="flex items-center justify-center gap-1 bg-gray-950 hover:bg-gray-900 text-gray-400 hover:text-gray-200 rounded-lg py-1.5 text-[9px] font-bold transition-all cursor-pointer border border-gray-850"
+                  className="flex flex-col items-center justify-center gap-0.5 bg-gray-950 hover:bg-gray-900 text-gray-400 hover:text-gray-200 rounded-lg py-1 text-[8px] font-bold transition-all cursor-pointer border border-gray-850"
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  <RotateCcw className="w-3 h-3 text-indigo-400" />
                   <span>Reset All</span>
                 </button>
                 <button
                   id="phone-forgot-password"
                   onClick={() => setCurrentSimulatorView('RECOVERY')}
-                  className="flex items-center justify-center gap-1 bg-[#1c1911] hover:bg-[#2c2311] text-amber-300 hover:text-amber-100 rounded-lg py-1.5 text-[9px] font-bold transition-all cursor-pointer border border-amber-950"
+                  className="flex flex-col items-center justify-center gap-0.5 bg-[#1c1911] hover:bg-[#2c2311] text-amber-300 hover:text-amber-100 rounded-lg py-1 text-[8px] font-bold transition-all cursor-pointer border border-amber-950"
                 >
-                  <HelpCircle className="w-3.5 h-3.5" />
-                  <span>FORGOT PASSWORD?</span>
+                  <HelpCircle className="w-3 h-3 text-amber-400" />
+                  <span>Forgot Pin</span>
+                </button>
+                <button
+                  id="phone-privacy-policy"
+                  onClick={() => setCurrentSimulatorView('APP_PRIVACY')}
+                  className="flex flex-col items-center justify-center gap-0.5 bg-[#0e1713] hover:bg-[#12231c] text-emerald-400 hover:text-emerald-250 rounded-lg py-1 text-[8px] font-bold transition-all cursor-pointer border border-emerald-950"
+                >
+                  <Shield className="w-3 h-3 text-emerald-400" />
+                  <span>Privacy</span>
                 </button>
               </div>
             </div>
           )}
 
-          {/* SECTION 4: SECURITY RECOVERY SCREEN */}
+          {/* SECTION: APP_PRIVACY POLICY (Interactive inside-app viewer) */}
+          {currentSimulatorView === 'APP_PRIVACY' && (
+            <div className="flex-1 flex flex-col justify-between bg-[#0a0b11]">
+              <div className="bg-[#10131e] px-3.5 py-2.5 border-b border-gray-900 flex items-center justify-between shrink-0">
+                <span className="text-[10px] font-bold text-gray-200">🔒 Official Privacy Policy</span>
+                <button
+                  id="privacy-close-btn"
+                  onClick={() => setCurrentSimulatorView('HOME')}
+                  className="px-2 py-0.5 bg-gray-800 hover:bg-gray-700 text-[8.5px] text-gray-300 rounded font-bold cursor-pointer"
+                >
+                  Back
+                </button>
+              </div>
+
+              {/* In-app Language Selector Toggle */}
+              <div className="bg-[#131623] px-3 py-1 flex justify-around border-b border-gray-900 shrink-0">
+                <button 
+                  onClick={() => setPrivacyLang('en')}
+                  className={`text-[8.5px] font-sans font-bold px-2 py-0.5 rounded ${privacyLang === 'en' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                >
+                  English
+                </button>
+                <button 
+                  onClick={() => setPrivacyLang('hi')}
+                  className={`text-[8.5px] font-sans font-bold px-2 py-0.5 rounded ${privacyLang === 'hi' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                >
+                  हिंदी (Hindi)
+                </button>
+              </div>
+
+              {/* Scrollable Policy Material */}
+              <div className="flex-1 p-3 overflow-y-auto max-h-[310px] space-y-3 font-sans text-[9px] leading-relaxed scrollbar-none">
+                {privacyLang === 'en' ? (
+                  <>
+                    <div className="border border-emerald-900/30 bg-emerald-950/10 p-2 rounded text-emerald-300">
+                      <strong>🌿 Offline-First Commitment</strong>
+                      <p className="mt-0.5 text-[8.5px]">We collect NO data. All PIN codes and app lock listings remain sandboxed on your local device.</p>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <strong className="text-gray-200">1. Data Safety & Privacy</strong>
+                      <p className="text-gray-400">Study Mode App Lock & Timer operates entirely locally. No passwords or app usage limits are ever transmitted to external servers or third-party analytical SDKs.</p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <strong className="text-gray-200">2. Device Permissions Used</strong>
+                      <ul className="list-disc pl-3 text-gray-400 space-y-1">
+                        <li><strong>Accessibility Service:</strong> Used solely to detect launches of blocked apps and display overlays instantly.</li>
+                        <li><strong>System Overlay Window:</strong> Used to display the PIN/Pattern blocker block window over distracting apps.</li>
+                        <li><strong>Usage Stats:</strong> Logs study minutes securely on your device.</li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-1">
+                      <strong className="text-gray-200">3. Child & Ad-Free Compliance</strong>
+                      <p className="text-gray-400">Since we gather zero personal info, we are fully COPPA compliant. We have zero distracting banner ads or web trackers.</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="border border-emerald-900/30 bg-emerald-950/10 p-2 rounded text-emerald-300">
+                      <strong>🌿 ऑफलाइन-फर्स्ट सुरक्षा</strong>
+                      <p className="mt-0.5 text-[8.5px]">हम कोई डेटा एकत्र नहीं करते हैं। आपके पासवर्ड और ऐप लॉक लिस्ट पूरी तरह आपके फ़ोन पर सैंडबॉक्स्ड रहते हैं।</p>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <strong className="text-gray-200">1. डेटा सुरक्षा और गोपनीयता</strong>
+                      <p className="text-gray-400">यह ऐप पूरी तरह से ऑफलाइन काम करता है। आपका PIN, पैटर्न, या स्क्रीन टाइम डेटा किसी बाहरी सर्वर या थर्ड-पार्टी एनालिटिक्स टूल पर नहीं भेजा जाता।</p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <strong className="text-gray-200">2. महत्वपूर्ण अनुमतियाँ</strong>
+                      <ul className="list-disc pl-3 text-gray-400 space-y-1">
+                        <li><strong>एक्सेसिबिलिटी सर्विस:</strong> प्रतिबंधित ऐप के ओपन होने का पता लगाने और तुरंत सुरक्षा स्क्रीन दिखाने के लिए।</li>
+                        <li><strong>सिस्टम ओवरले स्क्रीन:</strong> प्रतिबंधित ऐप्स के ऊपर पासवर्ड विंडो ड्रा करने के लिए।</li>
+                        <li><strong>यूसेज स्टैट्स:</strong> दैनिक स्टडी टाइम और लिमिट्स को आपके फ़ोन पर ट्रैक करने के लिए।</li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-1">
+                      <strong className="text-gray-200">3. बच्चों की सुरक्षा नियम</strong>
+                      <p className="text-gray-400">हम किसी भी प्रकार का व्यक्तिगत डेटा एकत्र नहीं करते, इसलिए हमारे सुरक्षा प्रणालियाँ बच्चों के लिए पूर्ण रूप से सुरक्षित (COPPA) हैं।</p>
+                    </div>
+                  </>
+                )}
+                
+                <div className="pt-2 text-center text-gray-650 border-t border-gray-900 text-[8px]">
+                  <span>Support: jitu1199pal@gmail.com</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* SECTION 5: SECURITY RECOVERY SCREEN */}
           {currentSimulatorView === 'RECOVERY' && (
             <div className="flex-1 flex flex-col justify-between p-4 bg-gradient-to-b from-[#1c1411] to-[#0d0f14]">
               <div className="space-y-4">
@@ -912,7 +1079,7 @@ export default function AndroidSimulator({
                 <div>
                   <span className="text-xs font-bold text-indigo-300 uppercase tracking-widest block">Simulating App Usage</span>
                   <p className="text-[9px] text-gray-500 max-w-[190px] mx-auto mt-1 leading-normal">
-                    App Lock with Timer background worker is actively monitoring this process. Screen limit countdown is live.
+                    Study Mode App Lock & Timer background worker is actively monitoring this process. Screen limit countdown is live.
                   </p>
                 </div>
 
@@ -964,7 +1131,7 @@ export default function AndroidSimulator({
                     <div>
                       <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Target App Locked</h4>
                       <p className="text-[9px] text-gray-500 leading-normal max-w-[190px] mx-auto mt-1">
-                        <strong>App Lock with Timer</strong> guard has locked this application boundary.
+                        <strong>Study Mode App Lock & Timer</strong> guard has locked this application boundary.
                       </p>
                     </div>
                   )}
@@ -990,8 +1157,8 @@ export default function AndroidSimulator({
                     )}
                   </div>
 
-                  {/* Extra time selection framework (if limit blocked) */}
-                  {launchedApp.dailyLimit > 0 && launchedApp.usedMinutes >= launchedApp.dailyLimit && (
+                  {/* Extra time selection framework (Always present on block warning overlays) */}
+                  {launchedApp && (
                     <div className="bg-[#1c1911]/45 p-2 rounded-xl border border-amber-950">
                       <span className="text-[8px] uppercase tracking-wider text-amber-400 font-bold block mb-1.5 text-center">Request Extra Timer Extensions</span>
                       <div className="grid grid-cols-3 gap-1">
@@ -1047,13 +1214,19 @@ export default function AndroidSimulator({
           <button
             id="outer-back-button"
             onClick={() => {
-              if (currentSimulatorView === 'HOME') {
+              if (currentSimulatorView === 'HOME' || currentSimulatorView === 'APP_PASSCODE_LOCK' || currentSimulatorView === 'APP_PRIVACY') {
                 setCurrentSimulatorView('PERMISSIONS');
               } else if (currentSimulatorView !== 'PERMISSIONS') {
-                setCurrentSimulatorView('HOME');
+                if (securityConfig.isConfigured) {
+                  setCurrentSimulatorView('APP_PASSCODE_LOCK');
+                  setPinEntry('');
+                  setPinError(false);
+                } else {
+                  setCurrentSimulatorView('HOME');
+                }
               }
             }}
-            className="w-8 h-8 rounded-full border border-gray-800 flex items-center justify-center text-gray-500 hover:text-gray-300 hover:bg-gray-850 transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full border border-gray-850 flex items-center justify-center text-gray-500 hover:text-gray-300 hover:bg-gray-850 transition-colors cursor-pointer"
             title="Android Gestures Back"
           >
             <CornerUpLeft className="w-3.5 h-3.5" />
@@ -1063,12 +1236,14 @@ export default function AndroidSimulator({
             id="outer-home-button"
             onClick={() => {
               if (securityConfig.isConfigured) {
-                setCurrentSimulatorView('HOME');
+                setCurrentSimulatorView('APP_PASSCODE_LOCK');
+                setPinEntry('');
+                setPinError(false);
               } else {
                 setCurrentSimulatorView('PERMISSIONS');
               }
             }}
-            className="w-10 h-3 rounded-full bg-gray-650 hover:bg-gray-500 transition-colors mx-auto shrink-0 bg-gray-600 cursor-pointer"
+            className="w-10 h-3 rounded-full bg-gray-650 hover:bg-gray-500 transition-colors mx-auto shrink-0 bg-gray-655 cursor-pointer"
             title="System Home Press"
           ></button>
 

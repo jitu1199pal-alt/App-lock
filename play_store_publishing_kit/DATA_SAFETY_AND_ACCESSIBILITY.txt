@@ -1,0 +1,59 @@
+========================================================================
+GOOGLE PLAY CONSOLE - DATA SAFETY & ACCESSIBILITY DECLARATION FORMS
+========================================================================
+App Name: Study Mode App Lock & Timer
+Package ID: com.applocktimer.pro
+
+इस फाइल में दिए गए टेक्स्ट को आप डायरेक्ट Google Play Console के फॉर्म्स में COPY और PASTE कर सकते हैं। यह आपकी ऐप को रिजेक्शन (Rejection) से बचाएगा।
+
+------------------------------------------------------------------------
+भाग 1: DATA SAFETY QUESTIONNAIRE (डेटा सुरक्षा प्रश्नावली)
+------------------------------------------------------------------------
+Play Console में "App Content" -> "Data Safety" सेक्शन में निम्नलिखित ऑप्शंस सेलेक्ट करें:
+
+1. Does your app collect or share any of the required user data types?
+   👉 Select: "No"
+
+2. Is all the user data collected by your app encrypted in transit?
+   👉 Select: "Yes" (या Simple No रखें क्योंकि डेटा कलेक्ट ही नहीं होता, लेकिन Yes रेकमेंडेड है)
+
+3. Do you provide a way for users to request that their data is deleted?
+   👉 Select: "Yes" (चूंकि ऐप लोकल है, डेटा क्लियर करने के लिए यूजर ऐप अनइंस्टॉल या डेटा क्लियर सेटिंग यूज़ कर सकता है)
+
+📝 DATA SAFETY DESCRIPTION / EXPLANATION TEXT (यदि कहीं पूछे):
+"Study Mode App Lock & Timer is designed with an offline-first privacy architecture. The application does not collect, track, share, or transmit any user settings, passwords, PINs, patterns, locked app list, or screen usage limits to any external servers or third parties. All operational configurations, logs, and database records remain strictly sandboxed in local persistent SQLite/Room storage on the user's device."
+
+
+------------------------------------------------------------------------
+भाग 2: ACCESSIBILITY API DECLARATION (एक्सेसिबिलिटी सर्विस घोषणा)
+------------------------------------------------------------------------
+⚠️ बेहद जरूरी (CRITICAL): Play Store पर App Lock ऐप्स सिर्फ इसलिए रिजेक्ट हो जाती हैं क्योंकि वे Accessibility API का उपयोग सही से डिक्लेयर नहीं करतीं। Play Console के "App Content" -> "Accessibility APIs" फॉर्म में निम्नलिखित सटीक जवाब भरें:
+
+प्रश्न A: What features in your app require the use of the Accessibility API?
+👉 उत्तर (Copy & Paste):
+"Our application 'Study Mode App Lock & Timer' uses the Accessibility Service API (specifically monitoring window state changes) to detect when a locked or restricted third-party application is launched by the user. If an app on the restricted list is launched during an active study lock period or when the screen limit has run out, our background worker triggers the security PIN/Pattern overlay immediately to prevent access, encouraging healthy productivity and phone focus."
+
+प्रश्न B: How does the use of the Accessibility API benefit the user?
+👉 उत्तर (Copy & Paste):
+"It benefits users by ensuring that their study hours are highly disciplined. The app blocks distracting apps such as games, social networks, and messaging clients instantly upon opening. This cannot be bypassed easily by switching tasks, which is only possible through the low-latency window detection using the Accessibility API."
+
+प्रश्न C: Does the app use this permission to collect any personal or sensitive user data?
+👉 उत्तर (Copy & Paste):
+"No. The application is entirely offline-first. We do not collect, store, transmit, or share any personal, private, operational, or telemetry data from the Accessibility service. The app only transiently inspects the package name of the active foreground window to apply locks, and immediately discards the information once evaluated."
+
+
+------------------------------------------------------------------------
+भाग 3: APP LOCK VIDEO DEMONSTRATION GUIDE (वीडियो प्रदर्शन गाइड)
+------------------------------------------------------------------------
+गूगल पॉलिसी के अनुसार, Accessibility Service इस्तेमाल करने वाले हर ऐप के लिए आपको एक YouTube "Unlisted" वीडियो बनाकर उसका लिंक वहां देना होता है।
+
+🎥 वीडियो कैसे बनाएं (How to Record the Demo Video):
+1. अपने फ़ोन की स्क्रीन रिकॉर्डिंग चालू करें।
+2. सबसे पहले ऐप 'Study Mode App Lock & Timer' खोलें और दिखाएँ कि आपने PIN या Pattern लॉक सेट किया है।
+3. ऐप में किसी भी एक ऐप (जैसे Photos या Settings) को लॉक करके दिखाएँ।
+4. होम स्क्रीन पर जाएँ और लॉक की हुई ऐप को ओपन करने की कोशिश करें।
+5. जैसे ही लॉक स्क्रीन ओवरले (PIN/Pattern screen) सामने आए, अपना PIN डालें और दिखाएँ कि ऐप अनलॉक हो गयी।
+6. **ज़रूरी**: वीडियो रिकॉर्ड करते समय शुरुआत में या डिस्क्रिप्शन में यह डिस्क्लेमर दिखाना/बताना ज़रूरी है कि:
+   "This app uses Accessibility Service for the sole purpose of detecting foreground app openings and showing the App Lock protective overlay to help users focus on studies, without collecting any data."
+7. इस वीडियो को YouTube पर *Unlisted* मोड में अपलोड करें और लिंक Google Play Console के Accessibility फॉर्म में डाल दें।
+========================================================================

@@ -1,0 +1,42 @@
+# Privacy Policy for Study Mode App Lock & Timer
+**Effective Date:** June 12, 2026
+
+This Privacy Policy governs the use of the mobile application **Study Mode App Lock & Timer** (the "Application") for mobile devices, created and distributed under package identifier `com.applocktimer.pro`.
+
+---
+
+### 🔒 Privacy First & Offline Guarantee
+Our commitment is simple: Study Mode App Lock & Timer operates entirely offline. It does not collect, record, process, store, or transmit your passwords, biometric information, app usage telemetry, database records, PINs, patterns, or personal files to any server or online storage system. Everything remains sandboxed inside your local device.
+
+---
+
+### 1. Information Collection and Usage
+The Application collects absolutely zero personally identifiable information (PII). All configurations, time profile allocations, lock locks, settings, and lock logs are stored strictly inside the device's secure internal memory using a standard local Room database storage subsystem.
+* **No Cloud Backend:** There are no databases or backend processing servers associated with this application.
+* **No Biometric Exposure:** Biometric values (fingerprint/face recognition lock configurations if enabled) are managed exclusively by the safe underlying Android Operating System hardware abstraction layer. The app never intercepts or sees your actual physical biometric identifiers.
+
+### 2. App System Permissions Requirements
+For the core features to function securely on your device, the Application may request the following system permissions. They are utilized strictly for native mechanisms:
+* **Usage Access (UsageStatsManager):** Required to detect which application is currently active on the foreground, allowing the app to trigger locks or timer quotas accordingly. This usage history is evaluated on the fly and is never recorded or stored.
+* **System Alert Window (Draw Over Other Apps / Overlay):</strong> Required to show the secure PIN or Pattern lock screens on top of target locked applications.
+* **Request Ignore Battery Optimizations:** Required to ensure the background scheduler processes screen time limits reliably and is not forced closed by the OS sleep cycles.
+
+### 3. Third-Party Data Sharing
+Because the Application is completely offline, it does not integrate any third-party ads networks, analytics, or external SDK trackers. Your app lock data is never shared with, sold to, or reviewed by any third-party businesses or analytical networks.
+
+### 4. Children's Privacy
+The Application does not address anyone under the age of 13. We do not collect or request any personal profiles, making the Application completely safe and compliant with child privacy laws, inclusive of COPPA or GDPR regulations.
+
+### 5. Security of your Data
+The security of your configurations relies directly on the lock patterns you set and the sandboxing features provided by the Android operating system. We encourage users to maintain secure device-wide lockers to prevent physical intrusion.
+
+### 6. Changes to This Privacy Policy
+We may update our Privacy Policy from time to time. Since the app relies on zero communication channels, any revised statement will be embedded directly in updated versions of the Application on Google Play or updated on our hosting page.
+
+### 7. Contact Us
+If you have any questions, suggestions, or concerns regarding the privacy rules of Study Mode App Lock & Timer, please contact us via our developer address:
+📧 Email: jitu1199pal@gmail.com
+
+---
+© 2026 Study Mode App Lock & Timer. All rights reserved.
+Package ID: com.applocktimer.pro | Built and compiled for Play Console SDK 34 compatibility.
